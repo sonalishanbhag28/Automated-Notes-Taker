@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Notes Taker</title>
+		<link rel="stylesheet" href="../static/css/style.css" />
+		<link rel="stylesheet" href="../static/css/nav-style.css" />
+		<link rel="stylesheet" href="../static/css/upload.css" />
+		<link rel="preconnect" href="https://fonts.googleapis.com" />
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+		<link
+			href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap"
+			rel="stylesheet"
+		/>
+		<script
+			class="jsbin"
+			src="https://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"
+		></script>
+	</head>
+	<body>
+		<!-- navbar -->
+		<header class="page-header">
+			<nav>
+				<a href="http://127.0.0.1:5500/index.html">
+					<img
+						class="logo horizontal-logo"
+						src="../static/logo.png"
+						alt="logo"
+					/>
+				</a>
+				<div class="top-menu-wrapper">
+					<div class="panel panel1"></div>
+					<div class="panel panel2"></div>
+					<ul class="top-menu">
+						<li>
+							<a href="http://127.0.0.1:5000/">Make Notes</a>
+						</li>
+						<!-- <li>
+							<a href="http://127.0.0.1:5500/ask.html"
+								>Ask Doubt</a
+							>
+						</li> -->
+						<li>
+							<a href="">
+								<span class="fa-stack fa-2x">
+									<i class="fas fa-circle fa-stack-2x"></i>
+									<i
+										class="fab fa-youtube fa-stack-1x fa-inverse"
+									></i>
+								</span>
+							</a>
+						</li>
+					</ul>
+				</div>
+			</nav>
+		</header>
+
+		<div class="input">
+			<h1 class="head">Make Notes</h1>
+			<form enctype="multipart/form-data" action="" method="post">
+				<div class="file-upload">
+					<div class="image-upload-wrap">
+						<input
+							class="file-upload-input"
+							type="file"
+							name="file"
+							onchange="readURL(this);"
+						/>
+						<div class="drag-text">
+							<h3>Drop or select an Audio File</h3>
+						</div>
+					</div>
+					<br />
+					<input
+						type="submit"
+						value="Upload"
+						class="file-upload-btn"
+					/>
+					<br />
+					<div class="file-upload-content">
+						<div class="image-title-wrap">
+							<br />
+							<button
+								type="button"
+								onclick="removeUpload()"
+								class="remove-image"
+							>
+								Remove
+								<span class="image-title">Uploaded Audio</span>
+							</button>
+						</div>
+					</div>
+				</div>
+				<div class="output">
+					<h3 style="text-align: center; padding-bottom: 1%">
+						Your Summary:
+					</h3>
+					{{ data }}
+				</div>
+			</form>
+		</div>
+	</body>
+	<script>
+		function readURL(input) {
+			if (input.files && input.files[0]) {
+				var reader = new FileReader();
+
+				reader.onload = function (e) {
+					$(".image-upload-wrap").hide();
+
+					$(".file-upload-image").attr("src", e.target.result);
+					$(".file-upload-content").show();
+
+					$(".image-title").html(input.files[0].name);
+				};
+
+				reader.readAsDataURL(input.files[0]);
+			} else {
+				removeUpload();
+			}
+		}
+
+		function removeUpload() {
+			$(".file-upload-input").replaceWith(
+				$(".file-upload-input").clone()
+			);
+			$(".file-upload-content").hide();
+			$(".image-upload-wrap").show();
+		}
+		$(".image-upload-wrap").bind("dragover", function () {
+			$(".image-upload-wrap").addClass("image-dropping");
+		});
+		$(".image-upload-wrap").bind("dragleave", function () {
+			$(".image-upload-wrap").removeClass("image-dropping");
+		});
+	</script>
+</html>
