@@ -12,9 +12,13 @@ R_patterns = [
     (r'(\w+)\'s', '\g<1> is'),
     (r'(\w+)\'re', '\g<1> are'),
 ]
+
+
 class REReplacer(object):
     def __init__(self, patterns=R_patterns):
-        self.patterns = [(re.compile(regex), repl) for (regex, repl) in patterns]
+        self.patterns = [(re.compile(regex), repl)
+                         for (regex, repl) in patterns]
+
     def replace(self, text):
         s = text
         for (pattern, repl) in self.patterns:

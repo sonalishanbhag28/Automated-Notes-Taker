@@ -1,9 +1,8 @@
-# Importing Libraries 
-import speech_recognition as sr 
-import os 
+# Importing Libraries
+import speech_recognition as sr
+import os
 from pydub import AudioSegment
 from pydub.silence import split_on_silence
-import winsound as win
 import string
 import re
 from time import sleep
@@ -18,7 +17,6 @@ import nltk
 import subprocess
 
 
-
 nltk.download('vader_lexicon')
 nltk.download('punkt')
 from nltk.sentiment.vader import SentimentIntensityAnalyzer
@@ -28,10 +26,10 @@ tokenizer = nltk.data.load('tokenizers/punkt/english.pickle')
 
 #Function Definitions
 # Function to convert a list to string
-def listToString(s):     
-        str1 = " "  
+def listToString(s):
+        str1 = " "
         return (str1.join(s))
-    
+
 #Function for converting speech to text
 r = sr.Recognizer()
 def speechtotext(path):
@@ -61,7 +59,7 @@ def preprocessing (name):
     for i in tokens:
             if i=='.':
                 f.write(".\n")
-            else: 
+            else:
                 f.write(i+" ")
     f.close()
     print("\nStep 3. Convert to lower case\n")
@@ -73,7 +71,7 @@ def preprocessing (name):
     # remove punctuation from each word
     import string
     table = str.maketrans('', '', string.punctuation)
-    stripped = [w.translate(table) for w in tokens] 
+    stripped = [w.translate(table) for w in tokens]
     print(stripped[:100])
     sleep(1)
     print("\nStep 5. Remove anything non alphabetic\n")
@@ -99,11 +97,11 @@ def preprocessing (name):
     return(listToString(stemmed))
 
 
-print("\nWelcome to the Automated Note Taker!")    
+print("\nWelcome to the Automated Notes Taker!")
 print("\nCOURSE: FOUNDATION ENGLISH\nCODE: ENG1001\n")
 
 #table of lectures
-table=[['Lecture #', 'Topic', 'Date', 'Name'], ['11','Nouns','12-05-2021','Ganesh'],['12','Adjectives','13-05-2021','Sonali'],['13','Verbs','14-05-2021','Anvesh']]
+table=[['Lecture #', 'Topic', 'Date', 'Name'], ['11','Nouns','12-07-2022','Riya'],['12','Adjectives','13-07-2022','Riddhi'],['13','Verbs','14-07-2022','Riddhi']]
 print(tabulate(table, headers='firstrow', tablefmt='fancy_grid'))
 
 print("\nEnter Lecture Number: ", end="")
@@ -113,7 +111,7 @@ print("Loading your class, please wait...\n")
 if choice==11:
 
     content=speechtotext('nouns.wav')
-    f=open("text//nouns.txt","w")
+    f=open("nouns.txt","w")
     f.write(content)
     f.close()
     print("1. Display Summary\n2. Reconvert Recording\nSelect option: ",end="")
@@ -121,23 +119,23 @@ if choice==11:
     print('Class recording successfully loaded.\n')
     if ch1==2:
             #UNCOMMENT TO PLAY SOUND AT THE BEGINNING
-            win.PlaySound('nouns.wav',win.SND_ASYNC)
-            with open('text//nouns.txt', 'r') as fileinput:
+            # win.PlaySound('nouns.wav',win.SND_ASYNC)
+            with open('nouns.txt', 'r') as fileinput:
                 for line in fileinput:
                     sleep(9)
                     print(line, end="")
                     sleep(4)
             print('\n\n\nPress any key to start preprocessing')
             ch=input()
-            print(preprocessing('text//nouns.txt'))
+            print(preprocessing('nouns.txt'))
     elif ch1==1:
             print('\n\n\nPress any key to start preprocessing')
             ch=input()
-            print(preprocessing('text//noun.txt'))    
+            print(preprocessing('nouns.txt'))
 
 elif choice==12:
-    content=speechtotext('adjectives.wav')
-    f=open("text//adjts.txt","w")
+    content=speechtotext('adjts.wav')
+    f=open("adjts.txt","w")
     f.write(content)
     f.close()
     print("1. Display Summary\n2. Reconvert Recording\nSelect option: ",end="")
@@ -145,25 +143,25 @@ elif choice==12:
     print('Class recording successfully loaded.\n')
     if ch1==2:
             #UNCOMMENT TO PLAY SOUND AT THE BEGINNING
-            win.PlaySound('adjts.wav',win.SND_ASYNC)
-            with open('text//adjts.txt', 'r') as fileinput:
+            # win.PlaySound('adjts.wav',win.SND_ASYNC)
+            with open('adjts.txt', 'r') as fileinput:
                 for line in fileinput:
                     sleep(9)
                     print(line, end="")
                     sleep(4)
             print('\n\n\nPress any key to start preprocessing')
             ch=input()
-            print(preprocessing('text//adjts.txt'))
+            print(preprocessing('adjts.txt'))
     elif ch1==1:
             print('\n\n\nPress any key to start preprocessing')
             ch=input()
-            print(preprocessing('text//adjt.txt'))
-    
-    
+            print(preprocessing('adjts.txt'))
+
+
 elif choice==13:
-    
+
     content=speechtotext('verbs.wav')
-    f=open("text//verbs.txt","w")
+    f=open("verbs.txt","w")
     f.write(content)
     f.close()
     print("1. Display Summary\n2. Reconvert Recording\nSelect option: ",end="")
@@ -171,26 +169,26 @@ elif choice==13:
     print('Class recording successfully loaded.\n')
     if ch1==2:
             #UNCOMMENT TO PLAY SOUND AT THE BEGINNING
-            win.PlaySound('verbs.wav',win.SND_ASYNC)
-            with open('text//verbs.txt', 'r') as fileinput:
+            # win.PlaySound('verbs.wav',win.SND_ASYNC)
+            with open('verbs.txt', 'r') as fileinput:
                 for line in fileinput:
                     sleep(9)
                     print(line, end="")
                     sleep(4)
             print('\n\n\nPress any key to start preprocessing')
             ch=input()
-            print(preprocessing('text//verbs.txt'))
+            print(preprocessing('verbs.txt'))
     elif ch1==1:
             print('\n\n\nPress any key to start preprocessing')
             ch=input()
-            print(preprocessing('text//verb.txt'))   
+            print(preprocessing('verbs.txt'))
 
 else:
     print("Invalid option!")
 
 
 
-#to check the speech to text file  
+#to check the speech to text file
 #f = open("test.txt", "r")
 #print("Retrieving Class Transcript:\n")
 #print(f.read())
@@ -203,7 +201,7 @@ else:
 #features are stored in F1, F2... etc
 #these are arrays which store each senteces value in order of sentences
 
-print("\nStarting Feature Extraction\n")
+print("\n\nStarting Feature Extraction\n")
 #input.txt stores text after preprocessing steps
 filename = r'input.txt'
 with open(filename) as f_obj:
@@ -219,7 +217,7 @@ sentences=splittosentences(contents)
 
 for sen in sentences:
     sen=sen.rstrip("\n")
-    
+
 #title processing
 title= sentences[0]
 title=title.rstrip(".")
@@ -233,7 +231,7 @@ def feature1(titlewords,sentences,senno):
     f1=[0]
     for i in range (0,senno-1):
         f1.append(0)
-        
+
     for i in range (0,senno):
         sentences[i]=sentences[i].rstrip(".")
         sentences[i]=sentences[i].split(" ")
@@ -270,7 +268,7 @@ def feature2(sentences):
     f2=[0]
     for i in range (0,senno-1):
         f2.append(0)
-    
+
     for i in range(0, senno):
         f2[i]=float(len(sentences[i])/max)
     return f2
@@ -356,16 +354,16 @@ for i in range(0, senno):
 
 def feature6(sentences, senno):
     simmat=[[0]*senno for x in range(senno)]
-    
+
     for i in range(0,senno):
         for j in range(i+1,senno):
             #print(i,j)
-            for word in sentences[j]:      
+            for word in sentences[j]:
                 if word in sentences[i]:
-   
+
                     #print("hit at",i,j)
                     simmat[i][j]=simmat[i][j]+1
-                    simmat[j][i]=simmat[i][j]         
+                    simmat[j][i]=simmat[i][j]
     return simmat
 
 simmat=feature6(sentences, senno)
@@ -373,11 +371,11 @@ simmat=feature6(sentences, senno)
 
 
 # UNCOMMENT TO PRINT FEATURE 6 RESULT:
-print("\nFeature 6 (Similarity Matrix)")
-for i in range(0, senno):
-    print("\n")    
-    for x in range(0, senno):
-            print(simmat[i][x], end=" ")
+# print("\nFeature 6 (Similarity Matrix)")
+# for i in range(0, senno):
+#     print("\n")
+#     for x in range(0, senno):
+#             print(simmat[i][x], end=" ")
 
 #print("succesfully completed")
 
@@ -403,7 +401,7 @@ sum1=[]
 f6=[]
 for i in range(0,senno):
     f6.append(0)
-    
+
 for i in range(0,senno):
     m= max(simmat[i])
     m=m/len(sentences[i])
@@ -416,19 +414,19 @@ for i in range(0,senno):
         score.append(f3[i]*2+f4[i]*10+f5[i]*5)
 
 #title sentence always added to summary
-sum1.append(0) 
+sum1.append(0)
 
 #adjust the following to increase or lower length of summary
 #you may balance information and conciseness according to requirements
 
-    
+
 for i in range(0, senno):
     if score[i]>=3.0:           #you can change 'cutoff' or 'threshold' value
         if i not in sum1:
             sum1.append(i)
 
 
-       
+
 
 #for i in range(0, senno):
     #print(score[i])
@@ -445,11 +443,11 @@ for i in range(0,senno):
 for i in range(0, senno):
     if f6[i]>0.8:
         if i in sum1 and i!=0:
-            sum1.remove(i)    
+            sum1.remove(i)
 
-sum1.sort()        
+sum1.sort()
 
-print("\nSentence Numbers Selected after Feature Extraction: ", end="") 
+print("\nSentence Numbers Selected after Feature Extraction: ", end="")
 print(sum1)
 
 
@@ -495,7 +493,7 @@ for i in range (1,senno-1):
     if abs(sid.polarity_scores(sentences[i])['compound']-sid.polarity_scores(sentences[i+1])['compound'])>0.1 :
         sum2.append(i)
 
-print("\nSentence Numbers Selected after Sentiment Analysis: ", end="") 
+print("\nSentence Numbers Selected after Sentiment Analysis: ", end="")
 print(sum2)
 
 count=-1
@@ -538,7 +536,7 @@ Fsum.sort()
 #take the higher half
 
 #print ("Temp")
-#print (temp)    
+#print (temp)
 print ("\nSentences in Final Summary: ",end="")
 print (Fsum)
 
@@ -555,9 +553,8 @@ f.close()
 
 print("\nSummary successfully generated!")
 print("Summary file saved in summary.txt!\n")
-print("Press any key to open your file")
+# print("Press any key to open your file")
 ch=input()
 
-subprocess.Popen("cd \\C:\\Users\\DELL\\AppData\\Local\\Programs\\Python\\Python38", shell=True)
-subprocess.Popen("summary.txt", shell=True)
-
+# subprocess.Popen("cd \\C:\\Users\\DELL\\AppData\\Local\\Programs\\Python\\Python38", shell=True)
+# subprocess.Popen("summary.txt")
