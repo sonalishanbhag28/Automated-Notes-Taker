@@ -2,7 +2,7 @@
 
 NLP-based Application that aims to convert online class recordings into simple and concise summaries by using Hybrid Text Summarization- a combination of abstractive and extractive methodologies. Summarization is done using Sentence Feature Scoring and subsequent Defuzzification.
 
-Execute repRE first, to load the user defined package created to expand contractions.
+Execute ``python repRE.py`` first, to load the user defined package created to expand contractions.
 
 Execute ``flask run`` to run the web application.
 
